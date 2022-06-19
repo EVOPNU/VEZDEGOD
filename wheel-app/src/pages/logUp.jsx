@@ -1,6 +1,6 @@
 import React, {useState} from 'react';
 import axios from "axios";
-import {useNavigate} from "react-router-dom";
+import {Link, useNavigate} from "react-router-dom";
 
 const LogUp = () => {
 
@@ -35,8 +35,8 @@ const LogUp = () => {
     }
 
     return (
-        <div>
-            <form>
+        <div className='innerBox'>
+            <form className='inputForm'>
                 <h1>Регистрация</h1>
                 <div>
                     <h3>Фамилия</h3>
@@ -54,10 +54,12 @@ const LogUp = () => {
                     <h3>Почта</h3>
                     <input onChange={event => setEmail(event.target.value)}
                            placeholder='email@mail.ru'
+                           type={"email"}
                            value={user.emailAddress}/>
                 </div>
                 <button onClick={sendRegistration.bind(this,user)} type={"button"}>Зарегистрироваться</button>
             </form>
+            <a href="/logIn">Авторизоваться</a>
         </div>
 
     );

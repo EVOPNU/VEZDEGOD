@@ -16,7 +16,7 @@ const LogIn = () => {
     const router = useNavigate()
 
     function login(user){
-        axios.post('',user)
+        axios.post('http://localhost:5067/api/v1/User/Login',user)
             .then(response => {
                 console.log('Success')
                 console.log(response.data)
@@ -40,26 +40,29 @@ const LogIn = () => {
     }
 
     return (
-        <form>
-            <h1>Авторизация</h1>
-            <div>
-                <h3>Фамилия</h3>
-                <input onChange={event => setLastName(event.target.value)}
-                       placeholder='Фамилия'
-                       value={user.lastName}/>
-            </div>
-            <div>
-                <h3>Почта</h3>
-                <input onChange={event => setEmail(event.target.value)}
-                       placeholder='email@mail.ru'
-                       value={user.emailAddress}/>
-            </div>
-            <div>
-                <input type="checkbox" checked={checked} onChange={changeChecked}/>
-                <label>Запомнить меня</label>
-            </div>
-            <button onClick={login.bind(this,user)} type={"button"}>Авторизоваться</button>
-        </form>
+        <div className='innerBox'>
+                <form className='inputInner logInInnner'>
+                <h1>Авторизация</h1>
+                <div>
+                    <h3>Фамилия</h3>
+                    <input onChange={event => setLastName(event.target.value)}
+                           placeholder='Фамилия'
+                           value={user.lastName}
+                           className='logIn'/>
+                </div>
+                <div>
+                    <h3>Почта</h3>
+                    <input onChange={event => setEmail(event.target.value)}
+                           placeholder='email@mail.ru'
+                           value={user.emailAddress}/>
+                </div>
+                <div>
+                    <input type="checkbox" checked={checked} onChange={changeChecked}/>
+                    <label>Запомнить меня</label>
+                </div>
+                <button className='logIn' onClick={login.bind(this,user)} type={"button"}>Авторизоваться</button>
+            </form>
+        </div>
     );
 };
 
