@@ -84,7 +84,7 @@ namespace Backend.Controllers
             {
                 foreach (var l in db.customUser.ToList())
                 {
-                    if (l.emailAddress == user.emailAddress && l.lastName == user.lastName && l.firstName == user.firstName)
+                    if (l.emailAddress == user.emailAddress && l.lastName == user.lastName)
                     {
                         return l;
                     }

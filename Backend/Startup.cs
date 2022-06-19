@@ -6,7 +6,7 @@ namespace Backend
 {
     public class Startup
     {
-
+        readonly string MyAllowSpecificOrigins = "_myAllowSpecificOrigins";
         public IConfiguration Configuration { get; }
 
         public Startup(IConfiguration configuration)
@@ -21,14 +21,14 @@ namespace Backend
             var authOptions = Configuration.GetSection("Auth").Get<AuthOptions>();
             services.AddCors(options =>
             {
-                //options.AddDefaultPolicy(builder =>
-                //{
-                //    builder.AllowAnyOrigin().AllowAnyMethod().AllowAnyHeader();
-                //});
-                options.AddPolicy( name: "MyAllowSpecificOrigins", policy =>
+                options.AddDefaultPolicy(builder =>
                 {
-                    policy.WithOrigins("http://localhost:3000");
+                    builder.AllowAnyOrigin().AllowAnyMethod().AllowAnyHeader();
                 });
+                //options.AddPolicy( name: MyAllowSpecificOrigins, policy =>
+                //{
+                //    policy.WithOrigins("http://localhost:5067");
+                //});
 
             });
 
