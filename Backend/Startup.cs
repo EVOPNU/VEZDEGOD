@@ -6,7 +6,7 @@ namespace Backend
 {
     public class Startup
     {
-
+        readonly string MyAllowSpecificOrigins = "_myAllowSpecificOrigins";
         public IConfiguration Configuration { get; }
 
         public Startup(IConfiguration configuration)
@@ -25,6 +25,11 @@ namespace Backend
                 {
                     builder.AllowAnyOrigin().AllowAnyMethod().AllowAnyHeader();
                 });
+                //options.AddPolicy( name: MyAllowSpecificOrigins, policy =>
+                //{
+                //    policy.WithOrigins("http://localhost:5067");
+                //});
+
             });
 
             services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
@@ -75,6 +80,7 @@ namespace Backend
                   pattern: "{controller=Home}/{action}/{id?}");
 
             });
+
         }
 
     }
