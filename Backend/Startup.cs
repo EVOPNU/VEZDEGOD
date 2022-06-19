@@ -21,10 +21,15 @@ namespace Backend
             var authOptions = Configuration.GetSection("Auth").Get<AuthOptions>();
             services.AddCors(options =>
             {
-                options.AddDefaultPolicy(builder =>
+                //options.AddDefaultPolicy(builder =>
+                //{
+                //    builder.AllowAnyOrigin().AllowAnyMethod().AllowAnyHeader();
+                //});
+                options.AddPolicy( name: "MyAllowSpecificOrigins", policy =>
                 {
-                    builder.AllowAnyOrigin().AllowAnyMethod().AllowAnyHeader();
+                    policy.WithOrigins("http://localhost:3000");
                 });
+
             });
 
             services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
@@ -75,6 +80,7 @@ namespace Backend
                   pattern: "{controller=Home}/{action}/{id?}");
 
             });
+
         }
 
     }

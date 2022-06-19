@@ -30,7 +30,7 @@ namespace Backend.Controllers
                 {
                     if (l.emailAddress == model.emailAddress)
                     {
-                        return BadRequest("AlredyExist"); //400
+                        return BadRequest("AlredyExist");
                     }
                 }
 
@@ -63,6 +63,21 @@ namespace Backend.Controllers
         }
 
 
+        [Route("Update")]
+        [HttpPut]
+        public IActionResult Update([FromBody] CustomUser model)
+        {
+
+            using CustomUserDbContext db = new CustomUserDbContext();
+            db.customUser.Update(model);
+            db.SaveChanges();
+            return Ok(model);
+          
+        }
+
+
+
+
         private CustomUser AuthenticateUser(CustomUser user)
         {
             using CustomUserDbContext db = new CustomUserDbContext();
@@ -80,7 +95,7 @@ namespace Backend.Controllers
         }
 
 
-            private string GenerateJWT(CustomUser user)
+        private string GenerateJWT(CustomUser user)
         {
             var authParams = options.Value;
             var securityKey = authParams.GetSymmetricSecurityKey();
