@@ -1,5 +1,6 @@
 import React, {useState} from 'react';
 import axios from "axios";
+import {useNavigate} from "react-router-dom";
 
 const LogUp = () => {
 
@@ -13,10 +14,8 @@ const LogUp = () => {
     [user.firstName, setFirstName] = useState('');
     [user.emailAddress, setEmail] = useState('');
 
+    const router = useNavigate()
 
-    function call(){
-        console.log(user)
-    }
     function sendRegistration(user){
         console.log(user)
         axios.post('http://localhost:5067/api/v1/User/Registration',user)
@@ -25,6 +24,7 @@ const LogUp = () => {
                 console.log(response.data)
                 localStorage.setItem('token',response.data.accessToken)
             //    there should be router to main page after reg.
+                router('/logIn')
 
             })
             .catch(error => {

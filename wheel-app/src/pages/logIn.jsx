@@ -1,5 +1,6 @@
 import React, {useState} from 'react';
 import axios from "axios";
+import {useNavigate} from "react-router-dom";
 
 const LogIn = () => {
 
@@ -10,14 +11,22 @@ const LogIn = () => {
     let setLastName, setEmail
     [user.lastName,setLastName] = useState('');
     [user.emailAddress, setEmail] = useState('');
+    const [checked, setChecked] = useState(false);
+
+    const router = useNavigate()
 
     function login(user){
         axios.post('',user)
             .then(response => {
                 console.log('Success')
                 console.log(response.data)
-                localStorage.setItem('token',response.data.accessToken)
+                if(checked) {
+                    localStorage.setItem('token', response.data.accessToken)
+                } else {sessionStorage.setItem('token',response.data.accessToken)}
                 //    there should be router to main page after reg.
+                router('/profile')
+
+
             })
             .catch(error => {
                 alert('Ops...There`s some problem')
@@ -25,6 +34,11 @@ const LogIn = () => {
                 // console.log(user)
             })
     }
+
+    function changeChecked(){
+        setChecked(!checked)
+    }
+
     return (
         <form>
             <h1>Авторизация</h1>
@@ -39,6 +53,10 @@ const LogIn = () => {
                 <input onChange={event => setEmail(event.target.value)}
                        placeholder='email@mail.ru'
                        value={user.emailAddress}/>
+            </div>
+            <div>
+                <input type="checkbox" checked={checked} onChange={changeChecked}/>
+                <label>Запомнить меня</label>
             </div>
             <button onClick={login.bind(this,user)} type={"button"}>Авторизоваться</button>
         </form>
